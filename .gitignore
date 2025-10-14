@@ -35,3 +35,7 @@ tmp/
 
 .temp-repos/
 _test-generated/
+
+# AI stuff
+.claude/settings.local.json
+public/llms-full.txt

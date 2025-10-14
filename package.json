@@ -9,10 +9,10 @@
     "astro": "astro",
     "dev": "astro dev --open",
     "start": "pnpm run build && pnpm run preview",
-    "build": "NODE_ENV=development astro build",
+    "build": "npm run generate:llms-full && NODE_ENV=development astro build",
     "preview": "NODE_ENV=development astro preview --open",
-    "build:prod": "NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront astro build",
-    "build:prod-fast": "NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront SKIP_COMPRESSION=true astro build",
+    "build:prod": "npm run generate:llms-full && NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront astro build",
+    "build:prod-fast": "npm run generate:llms-full && NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront SKIP_COMPRESSION=true astro build",
     "preview:prod": "NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront astro preview",
     "preview:prod-fast": "NODE_ENV=production VITE_PROD_BASE_PATH=/developer/commerce/storefront SKIP_COMPRESSION=true astro preview",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
@@ -40,7 +40,8 @@
     "upstream:issues": "node scripts/generate-upstream-issues.js",
     "verify:links": "node scripts/verify-links.js",
     "verify:enrichment-links": "node scripts/verify-enrichment-links.js",
-    "rollback:docs": "node scripts/rollback-generated-docs.js"
+    "rollback:docs": "node scripts/rollback-generated-docs.js",
+    "generate:llms-full": "node scripts/generate-llms-full.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
