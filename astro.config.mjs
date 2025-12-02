@@ -301,6 +301,7 @@ async function config() {
                     collapsed: false,
                     items: [
                       { label: 'Overview', link: '/get-started/' },
+                      { label: 'Licensing requirements', link: '/get-started/licensing-requirements' },
                       { label: 'Create a storefront', link: '/get-started/create-storefront' },
                       { label: 'Learn the architecture', link: '/get-started/architecture/' },
                       { label: 'Browser compatibility', link: '/get-started/browser-compatibility/' },

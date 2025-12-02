@@ -1,0 +1,133 @@
+---
+title: Licensing requirements
+description: Learn about the licensing requirements and eligibility criteria for accessing Adobe Commerce Storefront drop-ins.
+sidebar:
+  order: 0
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Link from '@components/Link.astro';
+
+Adobe Commerce Storefront drop-ins are pre-built, customizable UI components that provide complete commerce functionality for building high-performance storefronts. Access to these components requires a valid Adobe Commerce license.
+
+## Eligibility criteria
+
+To access and use Adobe Commerce Storefront drop-ins, your organization must have an active license for one of the following Adobe Commerce products:
+
+- **Adobe Commerce Cloud Service (ACCS)** - Fully managed cloud-hosted Adobe Commerce with automatic scaling, security patches, and infrastructure management
+- **Adobe Commerce on Cloud (ACO)** - Self-managed Adobe Commerce deployed on cloud infrastructure
+
+<Aside type="caution">
+Magento Open Source installations are not eligible for Adobe Commerce Storefront drop-ins. These components require Adobe Commerce features and APIs that are not available in the open-source edition.
+</Aside>
+
+## Required setup
+
+After confirming your licensing eligibility, you must complete the following setup steps to enable drop-in component functionality:
+
+### Install the Storefront Compatibility Package
+
+The Storefront Compatibility Package is required to enable drop-in components in your Adobe Commerce instance. This package adds necessary GraphQL endpoints, API enhancements, and backend functionality that drop-ins depend on.
+
+<Aside type="note">
+For Adobe Commerce as a Cloud Service (fully managed), the Storefront Compatibility Package is installed and updated automatically. Manual installation is only required for Adobe Commerce on Cloud (self-managed) and on-premises deployments.
+</Aside>
+
+**Installation steps:**
+
+1. Verify your Adobe Commerce version (2.4.7 or 2.4.8 required)
+2. Install the appropriate package version using Composer
+3. Update your Adobe Commerce instance
+
+For detailed installation instructions, see the <Link href="/setup/configuration/storefront-compatibility/install/" text="Storefront Compatibility Package Installation guide" />.
+
+### Configure your storefront connection
+
+After installing the Storefront Compatibility Package, you must configure your Edge Delivery Services storefront to connect to your Adobe Commerce backend. This includes:
+
+- Setting up API endpoints
+- Configuring CORS settings
+- Establishing authentication
+
+For complete configuration steps, see the <Link href="/setup/configuration/commerce-configuration/" text="Commerce Configuration guide" />.
+
+## Drop-in versions and licensing
+
+Adobe Commerce Storefront drop-ins are evolving to align with the new licensing requirements. Understanding the version strategy helps you plan your implementation and upgrades.
+
+### Version 2: Licensed drop-ins
+
+Version 2 of Adobe Commerce Storefront drop-ins introduces the licensing requirement described on this page. All new features, enhancements, and innovations will be delivered in Version 2 and future versions.
+
+**Key points about Version 2:**
+
+- **Licensing required**: Access requires an active Adobe Commerce Cloud Service or Adobe Commerce on Cloud license
+- **Latest features**: All new capabilities and innovations are delivered in Version 2
+- **Continued development**: Active development continues with regular updates and enhancements
+- **Production-ready**: Recommended for all new storefront implementations
+
+### Version 1: Transition period
+
+Version 1 drop-ins were created before the licensing requirement was established. These versions remain available during a transition period to support existing implementations.
+
+**Key points about Version 1:**
+
+- **Existing implementations**: If you built a storefront using Version 1 drop-ins, your implementation continues to function without disruption
+- **Maintenance mode**: Version 1 receives critical bug fixes and security patches but no new features
+- **Migration path**: Adobe provides migration guidance to help you upgrade from Version 1 to Version 2
+- **Not recommended for new projects**: New storefront implementations should use Version 2
+
+<Aside type="tip">
+**Planning an upgrade?** Version 2 drop-ins maintain API compatibility with Version 1 where possible, minimizing the effort required to migrate. Review the <Link href="/releases/changelog/" text="changelog" /> for specific breaking changes and migration guidance.
+</Aside>
+
+## Frequently asked questions
+
+### Will my existing storefront stop working?
+
+No. Existing storefront implementations using Version 1 drop-ins continue to function without disruption. You can upgrade to Version 2 when your organization is ready.
+
+### What happens to Version 1 drop-ins?
+
+Version 1 drop-ins remain available and functional. They receive critical bug fixes and security patches but do not receive new features or enhancements. All innovation continues in Version 2.
+
+### How do I upgrade from Version 1 to Version 2?
+
+Adobe provides migration documentation and support for upgrading from Version 1 to Version 2. The process typically involves:
+
+1. Verifying your Adobe Commerce license eligibility
+2. Installing the Storefront Compatibility Package
+3. Updating drop-in package versions in your project
+4. Testing your storefront functionality
+5. Deploying the updated storefront
+
+Detailed migration guides are available in the <Link href="/releases/changelog/" text="changelog" /> for each drop-in.
+
+### Can I use some Version 1 and some Version 2 drop-ins together?
+
+While technically possible in some cases, Adobe recommends using a consistent version across all drop-ins in your storefront. Mixing versions can lead to compatibility issues and complicate maintenance. Plan to migrate all drop-ins to Version 2 as a coordinated upgrade.
+
+### Do I need a separate license for each drop-in?
+
+No. Your Adobe Commerce Cloud Service or Adobe Commerce on Cloud license provides access to all Adobe Commerce Storefront drop-ins. You do not need separate licenses for individual drop-ins.
+
+### Where can I verify my Adobe Commerce license?
+
+Contact your Adobe account team or Adobe Commerce account manager to verify your license type and eligibility for Adobe Commerce Storefront drop-ins. You can also check your license details in the Adobe Commerce Admin panel under **System** > **Integrations** or contact Adobe Support.
+
+## Next steps
+
+After verifying your licensing and completing the required setup:
+
+1. [Create your first storefront](/get-started/create-storefront/) using the Adobe Commerce boilerplate
+2. [Learn the architecture](/get-started/architecture/) of Adobe Commerce Storefronts
+3. [Explore available drop-ins](/dropins/all/introduction/) to enhance your storefront
+
+## Support and questions
+
+If you have questions about licensing eligibility or need assistance with setup:
+
+- **Email**: <Link href="mailto:commerce-storefront-compatibility@adobe.com" text="commerce-storefront-compatibility@adobe.com" />
+- **Adobe Support**: Contact your Adobe account team or submit a support ticket through the Adobe Commerce Admin panel
+- **Documentation**: Review the <Link href="/setup/" text="Setup and Configuration guides" />
+
