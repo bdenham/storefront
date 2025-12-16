@@ -317,7 +317,6 @@ async function config() {
                       { label: 'Configuration', link: '/boilerplate/configuration/' },
                       { label: 'Blocks reference', link: '/boilerplate/blocks-reference/' },
                       { label: 'Customizing blocks', link: '/boilerplate/customizing-blocks/' },
-                      { label: 'Federated Search', link: '/boilerplate/federated-search/' },
                       { label: 'Updates', link: '/boilerplate/updates/' },
                     ],
                   },
@@ -350,6 +349,7 @@ async function config() {
                         collapsed: true,
                         items: [
                           { label: 'Multistore setup', link: '/setup/configuration/multistore-setup/' },
+                          { label: 'Federated search', link: '/setup/advanced/federated-search/' },
                           {
                             label: 'Luma Bridge',
                             collapsed: true,
