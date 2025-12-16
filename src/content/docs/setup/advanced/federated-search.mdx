@@ -12,7 +12,7 @@ prerequisites:
 time: "45 minutes"
 ---
 
-import { Aside, Code, LinkCard } from '@astrojs/starlight/components';
+import { Aside, Code, LinkCard, Steps } from '@astrojs/starlight/components';
 import Tasks from '@components/Tasks.astro';
 import Task from '@components/Task.astro';
 import Link from '@components/Link.astro';
@@ -44,10 +44,14 @@ Before starting this tutorial, make sure you have:
 
 Developing this federated search solution involves:
 
-1. Creating an index for the pages and content of your site
-2. Building a custom search block that fetches both content and commerce data
-3. Implementing a tabbed UI to display results separately
-4. Processing search queries in parallel for optimal performance
+<Steps>
+
+1. Creating an index for the pages and content of your site.
+1. Building a custom search block that fetches both content and commerce data.
+1. Implementing a tabbed UI to display results separately.
+1. Processing search queries in parallel for optimal performance.
+
+</Steps>
 
 This method keeps content and commerce searches distinct while delivering a unified experience to the user.
 
@@ -288,15 +292,19 @@ export default async function decorate(block) {
 
 **Key concepts explained:**
 
+<Steps>
+
 1. **Content index caching** (`getContentIndex`): The content index is fetched once and cached in memory for subsequent searches, improving performance.
 
-2. **Client-side content search** (`searchContent`): Because the content index is a JSON file, we can filter it client-side using the JavaScript `filter()` method. This is fast and doesn't require additional API calls.
+1. **Client-side content search** (`searchContent`): Because the content index is a JSON file, we can filter it client-side using the JavaScript `filter()` method. This is fast and doesn't require additional API calls.
 
-3. **Product search** (`searchProducts`): Products are searched using the Commerce [`search()` function](/dropins/product-discovery/functions/#search) from the Product Discovery drop-in, which handles the GraphQL query to Adobe Commerce. The `visibility` filter ensures only searchable products are returned.
+1. **Product search** (`searchProducts`): Products are searched using the Commerce [`search()` function](/dropins/product-discovery/functions/#search) from the Product Discovery drop-in, which handles the GraphQL query to Adobe Commerce. The `visibility` filter ensures only searchable products are returned.
 
-4. **Parallel execution** (`performSearch`): Both searches execute in parallel using `Promise.all()`, ensuring that the slower query doesn’t delay the faster one.
+1. **Parallel execution** (`performSearch`): Both searches execute in parallel using `Promise.all()`, ensuring that the slower query doesn't delay the faster one.
 
-5. **Tabbed UI**: Results are organized in separate tabs (Products and Content) for a clean user experience.
+1. **Tabbed UI**: Results are organized in separate tabs (Products and Content) for a clean user experience.
+
+</Steps>
 
 <Aside type="tip" title="Customize search behavior">
 - Add additional filters (like category or price range)
@@ -334,16 +342,19 @@ This addition creates a page that uses your `combined-search` block.
 
 **Quick verification:**
 
-1. **Content index**: Visit `https://[your-domain]/content-index.json` - verify pages are indexed with metadata
-2. **Product search**: Navigate to `/search?q=winter` - check Products tab shows results with images, titles, prices
-3. **Content search**: Try `/search?q=blog` - verify Content tab displays titles and descriptions
-4. **Search UI**: Type a query, press Enter - confirm URL updates with `?q=` parameter and tabs refresh
-5. **Edge cases**: Test empty results, special characters, short queries (1-2 chars)
+<Steps>
+
+1. **Content index**: Visit `https://[your-domain]/content-index.json` - verify pages are indexed with metadata.
+1. **Product search**: Navigate to `/search?q=winter` - check Products tab shows results with images, titles, prices.
+1. **Content search**: Try `/search?q=blog` - verify Content tab displays titles and descriptions.
+1. **Search UI**: Type a query, press Enter - confirm URL updates with `?q=` parameter and tabs refresh.
+1. **Edge cases**: Test empty results, special characters, short queries (1-2 chars).
+
+</Steps>
 
 **Expected result:**
 
 ![Federated search results showing search input, Products and Content tabs, with product cards displayed in the Products tab](images/federated-search-products-tab.png)
-*/}
 
 </Task>
 
@@ -355,13 +366,17 @@ Here's a complete example of how the federated search works in practice:
 
 **User Journey:**
 
-1. Shopper types "winter" in the search box
-2. System performs parallel searches:
-   - Content search finds blog posts about "Winter Collection 2024"
-   - Product search finds products tagged with "winter"
-3. Results display in separate tabs:
-   - **Products Tab**: Displays winter jackets, boots, accessories
-   - **Content Tab**: Displays blog posts, buying guides, seasonal content
+<Steps>
+
+1. Shopper types "winter" in the search box.
+1. System performs parallel searches:
+   - Content search finds blog posts about "Winter Collection 2024".
+   - Product search finds products tagged with "winter".
+1. Results display in separate tabs:
+   - **Products Tab**: Displays winter jackets, boots, accessories.
+   - **Content Tab**: Displays blog posts, buying guides, seasonal content.
+
+</Steps>
 
 ![Products tab showing winter product results with images and prices](images/federated-search-products-tab.png)
 
@@ -378,28 +393,27 @@ Here's a complete example of how the federated search works in practice:
 
 ## Troubleshooting
 
-### Common Issues
+### Content index returns 404 error
 
-* **Content index returns 404 error**
+Verify that you've correctly configured the `query.yaml` file and that you've published pages that match your include patterns. The index is only generated after the configuration is in place and pages are published.
 
-  > Verify that you've correctly configured the `query.yaml` file and that you've published pages that match your include patterns. The index is only generated after the configuration is in place and pages are published.
+### No products appear in search results
 
-* **No products appear in search results**
+Check that your GraphQL endpoint is correctly configured. In the browser console, verify that the GraphQL query is executing without errors. Ensure your Adobe Commerce instance has products with the searched terms.
 
-  > Check that your GraphQL endpoint is correctly configured. In the browser console, verify that the GraphQL query is executing without errors. Ensure your Adobe Commerce instance has products with the searched terms.
+### Content search returns too many irrelevant results
 
-* **Content search returns too many irrelevant results**
+Improve the search algorithm in the `searchContent()` function. Consider implementing:
 
-  > Improve the search algorithm in the `searchContent()` function. Consider implementing:
-  > - Ranking by relevance (title matches weighted higher than content matches)
-  > - Fuzzy matching for better results
-  > - Filtering out pages with `robots: noindex`
+- Ranking by relevance (title matches weighted higher than content matches)
+- Fuzzy matching for better results
+- Filtering out pages with `robots: noindex`
 
-* **Search is slow or times out**
+### Search is slow or times out
 
-  > - Check the size of your content index (should be under 5MB for good performance)
-  > - Ensure you're caching the content index properly (see `getContentIndex()` function)
-  > - Consider using a CDN to cache the content-index.json file
+- Check the size of your content index (should be under 5MB for good performance).
+- Ensure you're caching the content index properly (see `getContentIndex()` function).
+- Consider using a CDN to cache the content-index.json file.
 
 ### Getting Help
 
@@ -411,6 +425,8 @@ If you encounter issues not covered here:
 
 ## Summary
 
+You now have a fully functional federated search solution that combines content and commerce search in your storefront. This approach provides a simple yet effective way to help shoppers discover both products and content across your entire site.
+
 In this tutorial, you learned how to:
 
 - ✅ Configure a content index using `query.yaml` to index the pages for your site
@@ -418,7 +434,5 @@ In this tutorial, you learned how to:
 - ✅ Implement parallel async searches for optimal performance
 - ✅ Build a tabbed interface to organize and display federated search results
 - ✅ Handle edge cases and provide a smooth user experience
-
-You now have a fully functional federated search solution that combines content and commerce search in your storefront. This approach provides a simple yet effective way to help shoppers discover both products and content across your entire site.
 
 The implementation is maintainable, performant, and can be extended with additional features like filtering, sorting, and advanced ranking algorithms as your requirements grow.
