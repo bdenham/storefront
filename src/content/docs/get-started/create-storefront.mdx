@@ -44,7 +44,7 @@ The following diagram shows the steps you'll take to create and configure your s
 1. **Create Site Repo** by generating a storefront repository from the [boilerplate template](https://github.com/hlxsites/aem-boilerplate-commerce).
 1. **Add Code Sync App** to your newly created repo. This app automatically redeploys your storefront when you push changes to the main branch. It also provides the Edge Delivery system (Helix Admin) with access to your repo so it can coordinate code changes with content changes. Installing the code sync bot automatically configures the content pointer in your site's helix configuration.
 1. **Link Repo to Data** using the values in the **`config.json`** in your GitHub repo.
-1. **Add Content** to the Document Author environment hosted at `https://da.live/` using the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator).
+1. **Add Content** to the Document Author environment hosted at `https://da.live/` using the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) (also referred to as Storefront Creator in some contexts).
 1. **Install Sidekick** and configure it to preview, publish, and edit content on your storefront.
 1. **Set up Local Environment** to enable the development of the boilerplate into your own storefront.
 
@@ -78,6 +78,10 @@ The content folder is where you store all the content for your storefront. This 
 
 Sidekick is an extension that makes it easy for creators to connect, edit, preview, and publish content directly from documents and spreadsheets in your content folder. It's also responsible for pushing content to the Edge Delivery content bus so it can be previewed and published.
 
+### Site Creator
+
+The Site Creator tool (sometimes referred to as Storefront Creator) is used to create and initialize the content side of your storefront in the Document Author environment. It creates your content folder and configures the connection between your code repository and content.
+
 </Vocabulary>
 
 ## Example
@@ -110,7 +114,7 @@ Before you begin, take a moment to set up these required tools and accounts as n
   noborder
   icon="github"
   title="GitHub"
-  description="Sign into your GitHub account."
+  description="Sign into your GitHub account (personal or Enterprise)."
   link="https://github.com/login"
   rightIcon="external"
   target="_blank"
@@ -148,6 +152,12 @@ Before you begin, take a moment to set up these required tools and accounts as n
 ### Create site repo
 
 This task requires you to have a GitHub account with access to the organization or owner where you want to create your new repo.
+
+<Aside type="note" title="Personal vs. Enterprise GitHub accounts">
+Setup differs slightly depending on your account type:
+- **Personal GitHub account**: Create the repo under your personal account. When you select **Owner**, choose your username. The Code Sync app will be installed to your account.
+- **GitHub Enterprise (organization)**: Create the repo under your organization. When you select **Owner**, choose the organization. You may need organization admin approval to install the Code Sync app. Ensure you have permission to create repositories and install GitHub Apps in the organization.
+</Aside>
 
 <Diagram caption="Create your storefront repo.">
   ![Create your storefront repo](images/create-repo.webp)
@@ -194,6 +204,11 @@ The Code Sync app redeploys your storefront site whenever you push or merge chan
   the Code Sync page for new installations.
 </Aside>
 
+<Aside type="note" title="Personal vs. Enterprise GitHub accounts">
+- **Personal account**: Select your username when choosing where to install. You'll see your personal repositories in the selector.
+- **Enterprise/Organization**: Select your organization. You may need admin approval to install the Code Sync app. If your organization uses SAML SSO, you may need to authorize the app for SAML SSO access.
+</Aside>
+
 <Callouts>
 
 1. Navigate to the <Link text="AEM Code Sync app" href="https://github.com/apps/aem-code-sync" /> and select the **Configure** button (top right) to open the repo selection page.
@@ -216,13 +231,19 @@ The Code Sync app redeploys your storefront site whenever you push or merge chan
 
 ### Link repo to commerce data
 
-To link your storefront repo to your commerce backend, you can use the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) to automatically generate a `config.json` file for your site based on your Commerce backend—Adobe Commerce, Adobe Commerce as a Cloud Service, or Adobe Commerce Optimizer.
+To link your storefront repo to your commerce backend, you can use the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) to automatically generate a `config.json` file for your site based on your Commerce backend.
+
+<Aside type="note" title="Adobe Commerce as a Cloud Service (ACCS) vs. Adobe Commerce Optimizer (ACO)">
+Configuration differs by backend type. Use the config generator tool. It detects your backend and generates the appropriate structure. For detailed setup:
+- **Adobe Commerce as a Cloud Service**: See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference for Cloud Service endpoints and headers.
+- **Adobe Commerce Optimizer**: See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference for Optimizer-specific headers (such as `AC-View-ID`, `AC-Source-Locale`, `AC-Price-Book-ID`).
+</Aside>
 
 Update the storefront configuration for your project:
 
 <Steps>
 
-1. Get information about the values required for your project from the [Storefront configuration reference](/setup/configuration/commerce-configuration/) to get information about the values required for your project.
+1. Get information about the values required for your project from the [Storefront configuration reference](/setup/configuration/commerce-configuration/) (select the tab for your backend type: Adobe Commerce, Adobe Commerce as a Cloud Service, or Adobe Commerce Optimizer).
 2. Update the `config.json` file with the values for your project.
 3. Commit and push the updated file to the repo.
 
@@ -242,7 +263,7 @@ If you do not want demo content, you can create a file in https://da.live/#/{org
 </Aside>
 
 <Callouts>
-1. Open the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator), and select **Use existing repository**.
+1. Open the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) (also known as Storefront Creator), and select **Use existing repository**.
 1. Copy the GitHub owner and site values to the input fields and click **Create site**.
 1. Follow the prompts, and by the end the content will have been copied to your content folder.
 1. You may have to manually preview or publish the content, depending on whether you followed the prerequisites.
@@ -251,6 +272,22 @@ If you do not want demo content, you can create a file in https://da.live/#/{org
 <Diagram caption="Initialize your storefront content">
   ![Initialize your storefront content](images/initialize-content.webp)
 </Diagram>
+
+</Task>
+
+<Task>
+
+### (Optional) Use Universal Editor for content editing
+
+The [Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring) enables visual, in-context editing of your storefront content directly on the rendered page. You can edit text, images, blocks, and commerce components with immediate feedback.
+
+<Steps>
+
+1. Ensure your storefront is configured for [AEM Sites authoring](https://www.aem.live/docs/publishing-from-authoring) if you want to use the full Universal Editor.
+2. Open your storefront page in the Universal Editor to edit content in context.
+3. For Document Authoring sites, the [Visual Editor](/merchants/quick-start/visual-editor/) provides a subset of Universal Editor features for editing directly on da.live-hosted content.
+
+</Steps>
 
 </Task>
 
