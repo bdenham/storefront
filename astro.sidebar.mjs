@@ -775,7 +775,6 @@ export function generateSidebar() {
         },
         {
           label: 'B2C Commerce blocks',
-          collapsed: true,
           items: [
             { label: 'Overview', link: '/merchants/blocks/b2c/' },
             { label: 'Personalization setup', link: '/merchants/blocks/personalization/' },
@@ -859,7 +858,6 @@ export function generateSidebar() {
         },
         {
           label: 'Content customizations',
-          collapsed: true,
           items: [
             { label: 'Overview', link: '/merchants/content-customizations/' },
             { label: 'Enrichment', link: '/merchants/content-customizations/enrichment/' },

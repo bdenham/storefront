@@ -69,9 +69,10 @@ The tier pricing data is retrieved from the catalog GraphQL API, which provides 
 
 ## Render product types
 
-The PDP drop-in renders product data retrieved from the catalog GraphQL API. The API returns product data using a [`ProductView`](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#definition-ProductView) interface that maps Adobe Commerce product types to two categories:
+The PDP component supports rendering different product types configured in your Adobe Commerce instance by default using data provided by the [Catalog Service GraphQL API](https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/). Adobe Commerce supports seven product types, but the Catalog Service GraphQL API schema maps these to two types:
 
-- **Simple products** (`SimpleProductView`) — Products with a single price and quantity. This includes simple, virtual, downloadable, and gift card product types. Simple products return pricing through [`ProductViewPrice`](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#definition-ProductViewPrice).
+- _Simple products_ are products that are defined with a single price and quantity. Catalog Service maps the simple, virtual, downloadable, and gift card product types to [`simpleProductViews`](https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/queries/products/#return-details-about-a-simple-product).
+- _Complex products_ are comprised of multiple simple products. The component simple products can have different prices. A complex product can also be defined so that the shopper can specify the quantity of component simple products. Catalog Service maps the configurable, bundle, and grouped product types to [`complexProductViews`](https://developer.adobe.com/commerce/webapi/graphql/schema/catalog-service/queries/products/#return-details-about-a-complex-product).
 
 - **Complex products** (`ComplexProductView`) — Products comprised of multiple simple products with potentially different prices. This includes configurable, bundle, and grouped product types. Complex products return pricing as a [`ProductViewPriceRange`](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#definition-ProductViewPriceRange) representing the minimum and maximum prices.
 
