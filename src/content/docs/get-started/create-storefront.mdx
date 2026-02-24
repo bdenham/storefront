@@ -27,6 +27,17 @@ import SecurityNotice from 'src/content/fragments/security-notice.mdx';
 
 Welcome to your Commerce Storefront journey. Our goal is to make the journey fun and informative. We start every topic with big-picture overviews and relevant vocabulary. We then walk you through the details step-by-step. And finally, we provide a sandbox for practice when possible. Let's get started.
 
+<Aside type="tip" title="Setup priority">
+Getting storefront setup right is important for both Adobe Commerce as a Cloud Service (ACCS) and Adobe Commerce Optimizer (ACO) customers. Follow each step carefully, especially when linking your repo to commerce data and configuring headers for your backend type.
+</Aside>
+
+## Before you start
+
+Identify your Commerce backend type. Configuration differs by backend:
+
+- **Adobe Commerce as a Cloud Service (ACCS)**: Uses standard Commerce headers. See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference (Adobe Commerce as a Cloud Service tab).
+- **Adobe Commerce Optimizer (ACO)**: Uses Optimizer-specific headers (`AC-View-ID`, `AC-Source-Locale`, `AC-Price-Book-ID`). See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference (Adobe Commerce Optimizer tab).
+
 ## Big picture
 
 The tutorial helps you quickly create a new Edge Delivery Services storefront using the [Commerce boilerplate template](https://github.com/hlxsites/aem-boilerplate-commerce). The boilerplate provides a starter storefront that uses a pre-configured Adobe Commerce environment.
@@ -44,7 +55,7 @@ The following diagram shows the steps you'll take to create and configure your s
 1. **Create Site Repo** by generating a storefront repository from the [boilerplate template](https://github.com/hlxsites/aem-boilerplate-commerce).
 1. **Add Code Sync App** to your newly created repo. This app automatically redeploys your storefront when you push changes to the main branch. It also provides the Edge Delivery system (Helix Admin) with access to your repo so it can coordinate code changes with content changes. Installing the code sync bot automatically configures the content pointer in your site's helix configuration.
 1. **Link Repo to Data** using the values in the **`config.json`** in your GitHub repo.
-1. **Add Content** to the Document Author environment hosted at `https://da.live/` using the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) (also referred to as Storefront Creator in some contexts).
+1. **Add Content** to the Document Author environment hosted at `https://da.live/` using the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator).
 1. **Install Sidekick** and configure it to preview, publish, and edit content on your storefront.
 1. **Set up Local Environment** to enable the development of the boilerplate into your own storefront.
 
@@ -80,7 +91,7 @@ Sidekick is an extension that makes it easy for creators to connect, edit, previ
 
 ### Site Creator
 
-The Site Creator tool (sometimes referred to as Storefront Creator) is used to create and initialize the content side of your storefront in the Document Author environment. It creates your content folder and configures the connection between your code repository and content.
+The Site Creator tool is used to create and initialize the content side of your storefront in the Document Author environment. It creates your content folder and configures the connection between your code repository and content.
 
 </Vocabulary>
 
@@ -97,6 +108,17 @@ The centerpiece of this **20-minute storefront** is our Commerce boilerplate tem
 ### Prerequisites
 
 Before you begin, take a moment to set up these required tools and accounts as needed.
+
+<Aside type="note" title="Personal vs. Enterprise GitHub accounts">
+Setup differs depending on your GitHub account type. Both Adobe Commerce as a Cloud Service (ACCS) and Adobe Commerce Optimizer (ACO) customers use the same storefront creation flow, but GitHub setup varies:
+- **Personal account**: Create the repo under your username. The Code Sync app installs to your account. No organization approval needed.
+- **Enterprise/Organization**: Create the repo under your organization. You may need admin approval to install the Code Sync app. If your organization uses SAML SSO, you may need to authorize the app for SAML SSO access. Ensure you have permission to create repositories and install GitHub Apps.
+</Aside>
+
+<Aside type="note" title="Backend-specific prerequisites">
+- **Adobe Commerce as a Cloud Service (ACCS)**: Access to your Commerce Cloud project. GraphQL endpoint from [Catalog Service](https://experienceleague.adobe.com/en/docs/commerce/catalog-service/installation#access-the-service). Store, store view, and website codes from your Commerce Admin.
+- **Adobe Commerce Optimizer (ACO)**: Access to Adobe Commerce Optimizer. Catalog view ID, locale, and optionally Price Book ID from the [Adobe Commerce Optimizer UI](https://experienceleague.adobe.com/en/docs/commerce/optimizer/setup/catalog-view). See [Merchandising Services API](https://developer.adobe.com/commerce/services/optimizer/merchandising-services/using-the-api/#headers) for header details.
+</Aside>
 
 <CardGrid>
 <LinkCard
@@ -231,23 +253,39 @@ The Code Sync app redeploys your storefront site whenever you push or merge chan
 
 ### Link repo to commerce data
 
-To link your storefront repo to your commerce backend, you can use the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) to automatically generate a `config.json` file for your site based on your Commerce backend.
+To link your storefront repo to your commerce backend, use the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) to generate a `config.json` file. Follow the steps for your backend type:
 
-<Aside type="note" title="Adobe Commerce as a Cloud Service (ACCS) vs. Adobe Commerce Optimizer (ACO)">
-Configuration differs by backend type. Use the config generator tool. It detects your backend and generates the appropriate structure. For detailed setup:
-- **Adobe Commerce as a Cloud Service**: See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference for Cloud Service endpoints and headers.
-- **Adobe Commerce Optimizer**: See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference for Optimizer-specific headers (such as `AC-View-ID`, `AC-Source-Locale`, `AC-Price-Book-ID`).
-</Aside>
+<Tabs>
 
-Update the storefront configuration for your project:
+<TabItem label="Adobe Commerce as a Cloud Service (ACCS)">
 
 <Steps>
 
-1. Get information about the values required for your project from the [Storefront configuration reference](/setup/configuration/commerce-configuration/) (select the tab for your backend type: Adobe Commerce, Adobe Commerce as a Cloud Service, or Adobe Commerce Optimizer).
-2. Update the `config.json` file with the values for your project.
-3. Commit and push the updated file to the repo.
+1. Open the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) and enter your Commerce API URL. The tool detects ACCS and generates the appropriate structure.
+2. Gather values from your Commerce Admin: store code, store view code, and website code. Get your GraphQL endpoint from the [Catalog Service Guide](https://experienceleague.adobe.com/en/docs/commerce/catalog-service/installation#access-the-service).
+3. ACCS uses standard headers (`Magento-Store-Code`, `Magento-Store-View-Code`, `Magento-Website-Code`) and does not require API keys or environment IDs in the default configuration. See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference (Adobe Commerce as a Cloud Service tab) for details.
+4. Update the `config.json` file in your repo with the generated or customized values.
+5. Commit and push the updated file to the repo.
 
 </Steps>
+
+</TabItem>
+
+<TabItem label="Adobe Commerce Optimizer (ACO)">
+
+<Steps>
+
+1. Open the [config generator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/config-generator/config-generator) and enter your Commerce API URL. The tool detects ACO and generates the appropriate structure.
+2. Gather values from the [Adobe Commerce Optimizer UI](https://experienceleague.adobe.com/en/docs/commerce/optimizer/setup/catalog-view): `AC-View-ID` (catalog view ID), `AC-Source-Locale`, and optionally `AC-Price-Book-ID`. See the [Merchandising Services API documentation](https://developer.adobe.com/commerce/services/optimizer/merchandising-services/using-the-api/#headers) for header details.
+3. See the [Storefront configuration](/setup/configuration/commerce-configuration/) reference (Adobe Commerce Optimizer tab) for the full header structure and any troubleshooting notes.
+4. Update the `config.json` file in your repo with the generated or customized values.
+5. Commit and push the updated file to the repo.
+
+</Steps>
+
+</TabItem>
+
+</Tabs>
 
 </Task>
 
@@ -263,7 +301,7 @@ If you do not want demo content, you can create a file in https://da.live/#/{org
 </Aside>
 
 <Callouts>
-1. Open the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator) (also known as Storefront Creator), and select **Use existing repository**.
+1. Open the [Site Creator tool](https://da.live/app/adobe-commerce/storefront-tools/tools/site-creator/site-creator), and select **Use existing repository**.
 1. Copy the GitHub owner and site values to the input fields and click **Create site**.
 1. Follow the prompts, and by the end the content will have been copied to your content folder.
 1. You may have to manually preview or publish the content, depending on whether you followed the prerequisites.
@@ -279,15 +317,9 @@ If you do not want demo content, you can create a file in https://da.live/#/{org
 
 ### (Optional) Use Universal Editor for content editing
 
-The [Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring) enables visual, in-context editing of your storefront content directly on the rendered page. You can edit text, images, blocks, and commerce components with immediate feedback.
+The [Universal Editor](/merchants/quick-start/universal-editor/) enables visual, in-context editing of your storefront content directly on the rendered page. You can edit text, images, blocks, and commerce components with immediate feedback.
 
-<Steps>
-
-1. Ensure your storefront is configured for [AEM Sites authoring](https://www.aem.live/docs/publishing-from-authoring) if you want to use the full Universal Editor.
-2. Open your storefront page in the Universal Editor to edit content in context.
-3. For Document Authoring sites, the [Visual Editor](/merchants/quick-start/visual-editor/) provides a subset of Universal Editor features for editing directly on da.live-hosted content.
-
-</Steps>
+See [Using the Universal Editor](/merchants/quick-start/universal-editor/) for setup instructions and usage details.
 
 </Task>
 
