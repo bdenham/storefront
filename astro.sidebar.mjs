@@ -25,6 +25,7 @@ export function generateSidebar() {
           items: [
             { label: 'Overview', link: '/get-started/' },
             { label: 'Storefront Architecture', link: '/get-started/architecture/' },
+            { label: 'Backend options', link: '/get-started/backends/' },
             { label: 'Storefront Setup', link: '/get-started/create-storefront/' },
             { label: 'Browser Compatibility', link: '/get-started/browser-compatibility/' },
             { label: 'Lighthouse audits', link: '/get-started/run-lighthouse/' },
@@ -770,7 +771,6 @@ export function generateSidebar() {
             { label: 'Your first page', link: '/merchants/quick-start/your-first-page/' },
             { label: 'Using the Document Authoring tool', link: '/merchants/quick-start/document-authoring/' },
             { label: 'Using the Visual Editor', link: '/merchants/quick-start/visual-editor/' },
-            { label: 'Using the Universal Editor', link: '/merchants/quick-start/universal-editor/' },
             // { label: 'Using digital assets management', link: '/merchants/quick-start/digital-assets-management/' },
             { label: 'Using Content and Commerce blocks', link: '/merchants/quick-start/content-commerce-blocks/' },
             { label: 'Page metadata', link: '/merchants/quick-start/page-metadata/' },
