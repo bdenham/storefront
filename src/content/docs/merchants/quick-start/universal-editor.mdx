@@ -1,46 +1,49 @@
 ---
 title: Using the Universal Editor
-description: Edit your Commerce storefront content visually, directly on the rendered page, using the Universal Editor in DA.live.
+description: Learn how to use the Universal Editor to edit your Commerce storefront content with visual, in-context editing.
 ---
 
 import { Steps } from '@astrojs/starlight/components';
 import Aside from '@components/Aside.astro';
+import Link from '@components/Link.astro';
 
-The Universal Editor lets you edit storefront content directly on the rendered page in DA.live — click any element and change it in context. It is available for all Commerce backend types: PaaS, Adobe Commerce as a Cloud Service, and Adobe Commerce Optimizer. **Adobe Commerce as a Cloud Service and Adobe Commerce Optimizer customers use the same setup, configuration, and workflow as PaaS** — no additional UE steps. The editing workflow is identical regardless of backend.
+The [Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring) enables visual, in-context editing of your storefront content directly on the rendered page. You can edit text, images, blocks, and commerce components with immediate feedback.
 
-<Aside type="note" title="Prerequisite">
-Your storefront must already be set up and your content initialized in DA.live before you can use the Universal Editor. See [Create a storefront](/get-started/create-storefront/) if you have not completed setup.
+<Aside type="note" title="Universal Editor support">
+The Commerce boilerplate instrumentation for Universal Editor is still being updated. Not all blocks may be fully supported yet. For the latest support status, see the [boilerplate releases](/releases/changelog/).
 </Aside>
+
+## Prerequisites
+
+- Your storefront is created and configured (see [Create a storefront](/get-started/create-storefront/)).
+- For the full Universal Editor experience: Your storefront is configured for [AEM Sites authoring](https://www.aem.live/docs/publishing-from-authoring).
+- For Document Authoring sites: The [Visual Editor](/merchants/quick-start/visual-editor/) provides a subset of Universal Editor features.
+
+## Choosing your authoring approach
+
+| Approach | Best for | Universal Editor support |
+|----------|----------|---------------------------|
+| **AEM Sites authoring** | Full Universal Editor with AEM as content source | Full support |
+| **Document Authoring (da.live)** | Simpler setup, document-based content | [Visual Editor](/merchants/quick-start/visual-editor/) provides a subset of features |
+
+## Using Universal Editor with AEM Sites
 
 <Steps>
 
-1. Open your storefront page in [DA.live](https://da.live).
-2. Select the **Open in-context editing** button from the toolbar.
-3. Click any element on the rendered page to edit text, images, or blocks in context.
-4. Use **Sidekick** to preview and publish your changes.
+1. **Configure AEM Sites authoring**: Ensure your storefront is set up for [AEM Sites authoring](https://www.aem.live/docs/publishing-from-authoring). This enables the full Universal Editor experience with AEM as the content source.
+
+2. **Open your storefront in Universal Editor**: Navigate to your storefront page URL in the Universal Editor. You can edit text, images, blocks, and commerce components directly on the rendered page with immediate feedback.
+
+3. **Edit content in context**: Click any editable element to modify it. Changes are reflected immediately. Use the Universal Editor interface to manage blocks, configure commerce components, and update page structure.
 
 </Steps>
 
-<Aside type="note" title="Don't see the button?">
-If **Open in-context editing** is not visible in the toolbar, your site may need Universal Editor enabled first. Ask your developer or see [Universal Editor for developers](/boilerplate/universal-editor/).
-</Aside>
+## Using Visual Editor with Document Authoring
 
-## Known issues and limitations
+If you use Document Authoring (da.live) instead of AEM Sites, the [Visual Editor](/merchants/quick-start/visual-editor/) provides a subset of Universal Editor features for editing content hosted on da.live. See [Using the Visual Editor](/merchants/quick-start/visual-editor/) for details.
 
-- **Early Access**: Universal Editor for DA.live is part of Adobe's Early Access Technology program and requires AEM Sites credits on your IMS Org. Contact your Adobe account team to confirm eligibility.
-- **Browser support**: Only Chrome and Safari are supported. Firefox and other browsers are not supported at this time.
-- **Content fragments**: Editing content fragments with Universal Editor on DA.live (Author Bus) is not supported.
+## Related topics
 
-## Resources
-
-**For merchants and content authors:**
-
-- [Editing documents in DA.live](https://docs.da.live/authors/guides/editing-docs) — DA.live authoring basics
-- [Authoring content with the Universal Editor](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring) — full UE authoring reference
-- [Localization with Universal Editor](/merchants/quick-start/content-localization-universal-editor/) — Commerce-specific localization workflows
-
-**For developers (custom block instrumentation):**
-
-- [Universal Editor for developers](/boilerplate/universal-editor/) — enable UE for your DA.live site and instrument custom blocks
-- [da-block-collection](https://github.com/aemsites/da-block-collection) — reference implementation with full UE instrumentation
-- [Block Collection reference](https://www.aem.live/developer/block-collection) — standard block patterns
+- [Localization (Universal Editor)](/merchants/quick-start/content-localization-universal-editor/) — Commerce-specific authoring workflows for localization
+- [Universal Editor authoring](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/sites/authoring/universal-editor/authoring) — Adobe Experience League documentation
+- [Block Collection documentation](https://www.aem.live/developer/block-collection) — Block configuration reference
