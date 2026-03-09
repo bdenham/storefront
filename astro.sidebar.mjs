@@ -352,6 +352,13 @@ export function generateSidebar() {
                 { label: 'Slots', link: '/dropins/product-details/slots/' },
                 { label: 'Events', link: '/dropins/product-details/events/' },
                 { label: 'Dictionary', link: '/dropins/product-details/dictionary/' },
+                {
+                  label: 'Tutorials',
+                  collapsed: false,
+                  items: [
+                    { label: 'Notify me CTA', link: '/dropins/product-details/tutorials/notify-me-cta/' },
+                  ],
+                },
                 { label: 'Troubleshooting', link: '/dropins/product-details/troubleshooting/' },
               ],
             },
@@ -867,6 +874,13 @@ export function generateSidebar() {
             { label: 'Experiments', link: '/merchants/content-customizations/experiments/' },
             { label: 'Prerendered product pages', link: '/merchants/content-customizations/prerendered-product-pages/' },
             { label: 'Terms and conditions', link: '/merchants/content-customizations/terms-and-conditions/' },
+          ],
+        },
+        {
+          label: 'Edge Delivery Services',
+          items: [
+            { label: 'Overview', link: '/merchants/edge-delivery-services/' },
+            { label: 'Scheduling', link: '/merchants/edge-delivery-services/scheduling/' },
           ],
         },
       ],
