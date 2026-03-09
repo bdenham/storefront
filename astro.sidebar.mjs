@@ -24,10 +24,10 @@ export function generateSidebar() {
           collapsed: false,
           items: [
             { label: 'Overview', link: '/get-started/' },
-            { label: 'Storefront Architecture', link: '/get-started/architecture/' },
-            { label: 'Backend options', link: '/get-started/backends/' },
+            { label: 'Storefront architecture', link: '/get-started/architecture/' },
             { label: 'Create a storefront', link: '/get-started/create-storefront/' },
-            { label: 'Browser Compatibility', link: '/get-started/browser-compatibility/' },
+            { label: 'Backend options', link: '/get-started/backends/' },
+            { label: 'Browser compatibility', link: '/get-started/browser-compatibility/' },
             { label: 'Lighthouse audits', link: '/get-started/run-lighthouse/' },
             { label: "Launch checklist", link: "setup/launch/" },
           ],
@@ -38,7 +38,7 @@ export function generateSidebar() {
           items: [
             { label: 'Overview', link: '/boilerplate/' },
             { label: 'Getting started', link: '/boilerplate/getting-started/' },
-            { label: 'Blocks configuration', link: '/boilerplate/configuration/' },
+            { label: 'Configuration', link: '/boilerplate/configuration/' },
             { label: 'Blocks reference', link: '/boilerplate/blocks-reference/' },
             { label: 'Blocks customization', link: '/boilerplate/customizing-blocks/' },
             { label: 'Universal Editor', link: '/boilerplate/universal-editor/' },
@@ -328,13 +328,6 @@ export function generateSidebar() {
               items: [
                 { label: 'Overview', link: '/dropins/product-details/' },
                 { label: 'Quick Start', link: '/dropins/product-details/quick-start/' },
-                {
-                  label: 'How-tos',
-                  collapsed: false,
-                  items: [
-                    { label: 'Notify Me CTA', link: '/dropins/product-details/tutorials/notify-me-cta/' },
-                  ],
-                },
                 { label: 'Initialization', link: '/dropins/product-details/initialization/' },
                 { label: 'Styles', link: '/dropins/product-details/styles/' },
                 {
@@ -359,7 +352,6 @@ export function generateSidebar() {
                 { label: 'Slots', link: '/dropins/product-details/slots/' },
                 { label: 'Events', link: '/dropins/product-details/events/' },
                 { label: 'Dictionary', link: '/dropins/product-details/dictionary/' },
-                { label: 'Troubleshooting', link: '/dropins/product-details/troubleshooting/' },
               ],
             },
             {
@@ -874,15 +866,6 @@ export function generateSidebar() {
             { label: 'Experiments', link: '/merchants/content-customizations/experiments/' },
             { label: 'Prerendered product pages', link: '/merchants/content-customizations/prerendered-product-pages/' },
             { label: 'Terms and conditions', link: '/merchants/content-customizations/terms-and-conditions/' },
-          ],
-        },
-        {
-          label: 'Edge Delivery Services',
-          collapsed: true,
-          items: [
-            { label: 'Overview', link: '/merchants/edge-delivery-services/' },
-            { label: 'Scheduling options', link: '/merchants/edge-delivery-services/scheduling/' },
-            { label: 'Access permissions', link: '/merchants/edge-delivery-services/permissions/' },
           ],
         },
       ],
