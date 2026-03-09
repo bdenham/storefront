@@ -24,10 +24,10 @@ export function generateSidebar() {
           collapsed: false,
           items: [
             { label: 'Overview', link: '/get-started/' },
-            { label: 'Storefront Architecture', link: '/get-started/architecture/' },
+            { label: 'Storefront architecture', link: '/get-started/architecture/' },
             { label: 'Create a storefront', link: '/get-started/create-storefront/' },
             { label: 'Backend options', link: '/get-started/backends/' },
-            { label: 'Browser Compatibility', link: '/get-started/browser-compatibility/' },
+            { label: 'Browser compatibility', link: '/get-started/browser-compatibility/' },
             { label: 'Lighthouse audits', link: '/get-started/run-lighthouse/' },
             { label: "Launch checklist", link: "setup/launch/" },
           ],
