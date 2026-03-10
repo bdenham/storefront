@@ -1,8 +1,10 @@
 ---
 
+const adobeIcon = `${import.meta.env.BASE_URL}images/adobe.svg`;
+
 ---
 
-<div class="listContainer list">
+<div class="listContainer list" style={`--adobe-icon-url: url(${adobeIcon});`}>
   <slot />
 </div>
 
@@ -36,7 +38,7 @@
     border-color: var(--sl-color-black);
     text-align: center;
     vertical-align: sub;
-    content: url(/src/components/images/adobe.svg);
+    content: var(--adobe-icon-url);
     margin-top: 0;
     margin-bottom: 0;
     margin-right: 1rem;
