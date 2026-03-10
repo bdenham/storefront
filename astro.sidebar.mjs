@@ -352,13 +352,6 @@ export function generateSidebar() {
                 { label: 'Slots', link: '/dropins/product-details/slots/' },
                 { label: 'Events', link: '/dropins/product-details/events/' },
                 { label: 'Dictionary', link: '/dropins/product-details/dictionary/' },
-                {
-                  label: 'Tutorials',
-                  collapsed: false,
-                  items: [
-                    { label: 'Notify me CTA', link: '/dropins/product-details/tutorials/notify-me-cta/' },
-                  ],
-                },
                 { label: 'Troubleshooting', link: '/dropins/product-details/troubleshooting/' },
               ],
             },
