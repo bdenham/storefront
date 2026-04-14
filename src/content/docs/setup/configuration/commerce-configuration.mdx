@@ -92,11 +92,13 @@ The endpoints properties define the GraphQL API endpoints for your Commerce back
 
 **Configuration Properties:**
 
-- **`commerce-core-endpoint`** (read/write) - Core GraphQL endpoint for queries and mutations. This endpoint handles all write operations and some read operations. See <Link href="https://developer.adobe.com/commerce/webapi/graphql/reference/" text="Adobe Commerce GraphQL API" /> for details.
+- **`commerce-core-endpoint`** (read/write) - Core GraphQL endpoint for queries and mutations. This endpoint specifies the Commerce backend associated with your storefront. Once configured, the storefront boilerplate and drop-in code uses the endpoint to handle all write operations and some read operations for cart management, checkout, customer accounts, orders, and more. See <Link href="https://developer.adobe.com/commerce/webapi/graphql/reference/" text="Adobe Commerce GraphQL API" /> for details.
 
-- **`commerce-endpoint`** (read-only) - Services GraphQL endpoint optimized for read-only operations with Catalog Service, Live Search, and Product Recommendations. It is also optimized for performance for product data retrieval. For details, see the following documentation:
-   - For Adobe Commerce as a Cloud Service, see the <Link href="https://experienceleague.adobe.com/en/docs/commerce/catalog-service/installation#access-the-service" text="Catalog Service Guide" />.
-   - For Adobe Commerce Optimizer, see the <Link href="https://developer.adobe.com/commerce/services/optimizer/merchandising-services/using-the-api/#base-url" text="Merchandising Services Developer Guide" />.
+- **`commerce-endpoint`** (read-only) - Services GraphQL endpoint optimized for read-only operations for storefront rendering of Commerce product and category data. It is also optimized for performance for product data retrieval. Once configured, the storefront drop-ins use the endpoint to handle all read operations for rendering product and category data. For details, see the following documentation:
+
+   - For Adobe Commerce as a Cloud Service, the services GraphQL endpoint serves data from the Catalog, Live Search, and Product Recommendations services associated with your storefront to render product detail pages (PDP), product listing pages (PLP), and product recommendations on any storefront page. For details, see the <Link href="https://developer.adobe.com/commerce/webapi/graphql/schema/storefront-services/" text="Adobe Storefront Service GraphQL" />.
+
+   - For Adobe Commerce Optimizer, the services GraphQL endpoint serves data from the Adobe Commerce Optimizer instance associated with your storefront to render PDP, PLP, and product recommendations on any storefront page based on the Commerce Optimizer catalog view, merchandising rules, and recommendations configuration. For details, see the <Link href="https://developer.adobe.com/commerce/services/optimizer/merchandising-services/" text="Merchandising Services Developer Guide" />.
 
 ### Headers
 
