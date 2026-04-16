@@ -1,0 +1,262 @@
+<section class="page-feedback" aria-label="Page feedback">
+    <div class="feedback-heading">How was this page?</div>
+
+    <div class="feedback-panel">
+        <div
+            class="feedback-buttons"
+            role="group"
+            aria-label="Sentiment feedback"
+        >
+            <button
+                type="button"
+                data-score="5"
+                aria-label="Great - I found what I needed"
+                data-tooltip="Great - I found what I needed">😊</button
+            >
+            <button
+                type="button"
+                data-score="3"
+                aria-label="Okay - it was fine, but could be improved"
+                data-tooltip="Okay - it was fine, but could be improved"
+                >😐</button
+            >
+            <button
+                type="button"
+                data-score="1"
+                aria-label="Poor - I had trouble or did not find this helpful"
+                data-tooltip="Poor - I had trouble or did not find this helpful"
+                >😞</button
+            >
+        </div>
+
+        <div class="feedback-input">
+            <textarea
+                id="feedback-comment"
+                name="comment"
+                placeholder="Add details (optional)"
+                rows="2"></textarea>
+            <button id="feedback-submit" type="button">Send</button>
+        </div>
+    </div>
+
+    <p id="feedback-status" aria-live="polite"></p>
+</section>
+
+<script type="module">
+    const endpoint = "https://formspree.io/f/your-form-id";
+    const root = document.querySelector(".page-feedback");
+    const statusEl = root?.querySelector("#feedback-status");
+    const commentEl = root?.querySelector("#feedback-comment");
+    const buttons = Array.from(root?.querySelectorAll("[data-score]") || []);
+    const submitButton = root?.querySelector("#feedback-submit");
+
+    let selectedScore = null;
+
+    const setStatus = (message, isError = false) => {
+        if (!statusEl) return;
+        statusEl.textContent = message;
+        statusEl.style.color = isError
+            ? "var(--sl-color-red-7)"
+            : "var(--sl-color-green-7)";
+    };
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            selectedScore = button.getAttribute("data-score");
+            buttons.forEach((btn) =>
+                btn.classList.toggle("selected", btn === button),
+            );
+            setStatus("");
+        });
+    });
+
+    submitButton?.addEventListener("click", async () => {
+        if (!selectedScore) {
+            setStatus("Please choose a sentiment.", true);
+            return;
+        }
+
+        if (!endpoint || endpoint.includes("your-form-id")) {
+            setStatus(
+                "Feedback endpoint not configured. Please update Feedback.astro.",
+                true,
+            );
+            return;
+        }
+
+        const payload = {
+            page: window.location.pathname,
+            score: selectedScore,
+            comment: commentEl?.value.trim() || "",
+            timestamp: new Date().toISOString(),
+        };
+
+        submitButton.disabled = true;
+        setStatus("Sending...");
+
+        try {
+            const response = await fetch(endpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}`);
+            }
+
+            setStatus("Thanks for your feedback!");
+            if (commentEl) commentEl.value = "";
+            selectedScore = null;
+            buttons.forEach((btn) => btn.classList.remove("selected"));
+        } catch (error) {
+            console.error("Feedback submit failed", error);
+            setStatus("Unable to send feedback right now.", true);
+        } finally {
+            if (submitButton) submitButton.disabled = false;
+        }
+    });
+</script>
+
+<style>
+    .page-feedback {
+        border-top: 1px solid var(--sl-color-gray-4);
+        display: grid;
+        gap: 0.5rem;
+        padding: 0.85rem 0 0;
+        margin-top: 0.8rem;
+    }
+
+    .feedback-heading {
+        font-size: 0.93rem;
+        font-weight: 700;
+    }
+
+    .feedback-panel {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .feedback-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0rem;
+    }
+
+    .feedback-buttons button {
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 2px solid var(--sl-color-gray-5);
+        border-radius: 999px;
+        background: var(--sl-color-surface);
+        color: var(--sl-color-text);
+        cursor: pointer;
+        font-size: 1.75rem;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            background 120ms ease,
+            border-color 120ms ease;
+    }
+
+    .feedback-buttons button::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: 50%;
+        left: calc(100% + 0.5rem);
+        transform: translateY(-50%);
+        white-space: nowrap;
+        padding: 0.35rem 0.6rem;
+        border-radius: 0.65rem;
+        background: rgba(13, 93, 225, 0.95);
+        color: white;
+        font-size: 0.78rem;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+            opacity 120ms ease,
+            transform 120ms ease;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+        z-index: 1;
+    }
+
+    .feedback-buttons button:hover::after,
+    .feedback-buttons button:focus-visible::after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0.1rem);
+    }
+
+    .feedback-input {
+        display: grid;
+        gap: 0.35rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .feedback-input textarea {
+        width: 100%;
+        min-height: 2rem;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid var(--sl-color-gray-5);
+        border-radius: 0.75rem;
+        background: var(--sl-color-surface);
+        color: var(--sl-color-text);
+        font: inherit;
+        resize: vertical;
+    }
+
+    .feedback-input button {
+        align-self: flex-start;
+        max-width: 6rem;
+    }
+
+    .feedback-buttons button:hover,
+    .feedback-buttons button.selected {
+        border-color: var(--sl-color-blue-8);
+        background: var(--sl-color-blue-1);
+    }
+
+    .feedback-label {
+        font-size: 0.82rem;
+        color: var(--sl-color-gray-6);
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    #feedback-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.4rem;
+        min-width: 5rem;
+        padding: 0.55rem 0.9rem;
+        border-radius: 0.75rem;
+        border: none;
+        background: var(--sl-color-blue-9, #2563eb);
+        color: white;
+        font-weight: 600;
+        font-size: 0.88rem;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    #feedback-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    #feedback-status {
+        font-size: 0.84rem;
+        color: var(--sl-color-gray-6);
+        min-height: 1rem;
+        margin: 0;
+    }
+</style>
