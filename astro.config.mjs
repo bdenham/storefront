@@ -170,7 +170,9 @@ async function config() {
           },
           {
             tag: 'script',
-            content: `<script src="https://t.contentsquare.net/uxa/a1dbc6ab8ae12.js"></script>`,
+            attrs: {
+              src: 'https://t.contentsquare.net/uxa/a1dbc6ab8ae12.js',
+            },
           },
           {
             tag: 'meta',
